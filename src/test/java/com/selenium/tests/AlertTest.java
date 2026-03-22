@@ -36,7 +36,7 @@ public class AlertTest {
     @AfterMethod
     public void tearDown() {
         // Quit the WebDriver instance to close the browser after each test method
-        //getDriver().quit();
+        getDriver().quit();
     }
 
     @Test

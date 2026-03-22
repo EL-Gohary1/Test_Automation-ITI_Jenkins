@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="E:/iti/java/projects/AutomationTest1">
+    <test verbose="2" name="E:/iti/java/projects/Test_Automation-ITI_Jenkins" parallel="methods" thread-count="3">
         <classes>
+            <class name="com.selenium.tests.AlertTest">
+                <methods>
+                    <include name="alertTest"/>
+                    <include name="promptAlertTest"/>
+                    <include name="promptAlertInFrameTest"/>
+                    <include name="promptAlertInNewWindowTest"/>
+                    <include name="alertInSelectTest"/>
+                </methods>
+            </class>
+            <class name="com.selenium.tests.CookieBasedTest">
+                <methods>
+                    <include name="getCookies"/>
+                </methods>
+            </class>
             <class name="com.selenium.tests.DynamicPageTest">
                 <methods>
                     <include name="checkButtonAddBox"/>
                     <include name="checkRevealNewInput"/>
                 </methods>
             </class>
+            <class name="com.selenium.tests.MouseInteractionTest">
+                <methods>
+                    <include name="dragAndDrop"/>
+                    <include name="moveMouse"/>
+                    <include name="hoverMouse"/>
+                </methods>
+            </class>
+            <class name="com.selenium.tests.PageWithFrameTest">
+                <methods>
+                    <include name="switchToFrameThenToDefaultThenToNewWindow"/>
+                </methods>
+            </class>
             <class name="com.selenium.tests.WebFormTest">
                 <methods>
                     <include name="checkFormSubmittedMessage"/>
+                    <include name="checkDisabledInputIsDisable"/>
                     <include name="checkReadonlyInput"/>
                 </methods>
             </class>

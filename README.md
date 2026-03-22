@@ -16,7 +16,11 @@ Test_Automation-ITI_Jenkins/
 │   └── test/
 │       └── java/
 │           └── com.selenium.tests/
+│               ├── AlertTest.java
+│               ├── CookieBasedTest.java
 │               ├── DynamicPageTest.java
+│               ├── MouseInteractionTest.java
+│               ├── PageWithFrameTest.java
 │               └── WebFormTest.java
 ├── .gitignore
 ├── pom.xml
@@ -41,6 +45,70 @@ Test_Automation-ITI_Jenkins/
 
 ## 🧪 Test Scenarios
 
+### Alert Tests
+
+**AlertTest.java**
+
+Test Cases:
+
+#### alertTest
+
+- Navigate to the alerts page
+- Click the alert button
+- Switch to alert and retrieve its text
+- Assert the alert text equals `"cheese"`
+- Accept the alert
+
+#### promptAlertTest
+
+- Navigate to the alerts page
+- Click the prompt button
+- Switch to alert and send keys `"hello"`
+- Accept the alert
+
+#### promptAlertInFrameTest
+
+- Navigate to the alerts page
+- Switch to iframe `"iframeWithAlert"`
+- Click the link inside the frame
+- Switch to alert and assert the text equals `"framed cheese"`
+- Accept and return to default content
+
+#### promptAlertInNewWindowTest
+
+- Navigate to the alerts page
+- Click button to open a new window with an onload alert
+- Wait for two windows to be available
+- Switch to the new window
+- Accept the alert
+- Assert the page text equals `"Page with onload event handler"`
+- Switch back to the original window
+
+#### alertInSelectTest
+
+- Navigate to the alerts page
+- Find the select dropdown and select value `"2"`
+- Switch to alert and assert the text equals `"changed"`
+- Accept the alert and return to default content
+
+---
+
+### Cookie-Based Tests
+
+**CookieBasedTest.java**
+
+Test Cases:
+
+#### getCookies
+
+- Navigate to the cookie background page
+- Click the green button
+- Retrieve the cookie named `"theme"`
+- Assert the cookie value equals `"lightgreen"`
+- Take and save a screenshot as `new.png`
+
+---
+
 ### Dynamic Page Tests
 
 **DynamicPageTest.java**
@@ -51,16 +119,60 @@ Test Cases:
 
 - Open dynamic page
 - Click "Add Box"
-- Wait for new element
-- Verify background color is red
+- Wait for new element with id `"box0"` to appear
+- Verify background color is red (`#ff0000`)
 
 #### checkRevealNewInput
 
 - Open dynamic page
 - Click reveal button
-- Wait for input field
-- Send text
-- Verify input value
+- Wait for input field with id `"revealed"` to appear
+- Send text `"Ahmed"`
+- Verify input value equals `"Ahmed"`
+
+---
+
+### Mouse Interaction Tests
+
+**MouseInteractionTest.java**
+
+Test Cases:
+
+#### dragAndDrop
+
+- Navigate to the mouse interaction page
+- Find source element `"draggable"` and destination `"droppable"`
+- Perform drag-and-drop action
+- Assert the drop status text contains `"dropped"`
+
+#### moveMouse
+
+- Navigate to the mouse interaction page
+- Move the mouse to the `"mouse-tracker"` element with offset (5, 5)
+- Assert the relative location text contains `"5, 5"`
+
+#### hoverMouse
+
+- Navigate to the mouse interaction page
+- Move the mouse to the `"hover"` element
+- Assert the move status text contains `"hovered"`
+
+---
+
+### Page With Frame Tests
+
+**PageWithFrameTest.java**
+
+Test Cases:
+
+#### switchToFrameThenToDefaultThenToNewWindow
+
+- Navigate to the page with frame
+- Switch to frame `"myframe"` and assert the div text contains `"Simple page with simple test."`
+- Return to default content and click `"Open new window"`
+- Wait for two windows to be available
+- Switch to the new window titled `"Simple Page"`
+- Assert the div text contains `"Simple page with simple test."`
 
 ---
 
@@ -72,20 +184,27 @@ Test Cases:
 
 #### checkFormSubmittedMessage
 
-- Fill form fields
-- Select dropdown value
-- Select checkbox
-- Select radio button
+- Fill form fields (text, password, datalist)
+- Select dropdown value `"3"`
+- Uncheck checkbox 1, check checkbox 2
+- Select radio button 2
+- Set color input to `#00ff00`
+- Set range slider to `10`
 - Submit form
-- Verify success message
+- Wait for page title to contain `"target page"`
+- Assert heading text equals `"Form submitted"`
 
 #### checkDisabledInputIsDisable
 
-- Verify disabled input field
+- Navigate to the web form page
+- Find the input field with name `"my-disabled"`
+- Assert the input field is disabled
 
 #### checkReadonlyInput
 
-- Verify readonly input field
+- Navigate to the web form page
+- Find the input field with name `"my-readonly"`
+- Assert the `"readonly"` attribute is present
 
 ---
 
@@ -133,8 +252,12 @@ This opens the Allure report in your default browser automatically.
 The suite runs the following test methods in order:
 
 ```
-DynamicPageTest  →  checkButtonAddBox, checkRevealNewInput
-WebFormTest      →  checkFormSubmittedMessage, checkReadonlyInput
+AlertTest            →  alertTest, promptAlertTest, promptAlertInFrameTest, promptAlertInNewWindowTest, alertInSelectTest
+CookieBasedTest      →  getCookies
+DynamicPageTest      →  checkButtonAddBox, checkRevealNewInput
+MouseInteractionTest →  dragAndDrop, moveMouse, hoverMouse
+PageWithFrameTest    →  switchToFrameThenToDefaultThenToNewWindow
+WebFormTest          →  checkFormSubmittedMessage, checkDisabledInputIsDisable, checkReadonlyInput
 ```
 
 
