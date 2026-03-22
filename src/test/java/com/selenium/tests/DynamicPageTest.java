@@ -50,7 +50,7 @@ public class DynamicPageTest {
         // Set an implicit wait of 10 seconds for the WebDriver
         getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         // Create a new WebElement instance to interact with the page elements and find the button with id "adder" using its XPath
-        WebElement webElement = getDriver().findElement(By.xpath("//*[@id=\"adder\"]"));
+        WebElement webElement = getDriver().findElement(By.id("adder"));
         // Click the button to add a new box to the page
         webElement.click();
 
@@ -58,7 +58,7 @@ public class DynamicPageTest {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         // Wait until the new box with id "box0" is present on the page and assign it to the webElement variable
         webElement = wait.until(
-                ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"box0\"]"))
+                ExpectedConditions.presenceOfElementLocated(By.id("box0"))
         );
         // Assert that the new box is displayed on the page
         String color = webElement.getCssValue("background-color");
